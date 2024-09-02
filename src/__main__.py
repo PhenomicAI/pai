@@ -1,5 +1,5 @@
 import argparse
-from embed import PaiEmbeddings
+from src.pai.embed import PaiEmbeddings
 
 if __name__ == "__main__":
 
