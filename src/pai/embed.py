@@ -3,6 +3,7 @@ import zipfile
 import time
 import logging
 import os
+import re
 
 from dotenv import load_dotenv
 import requests
@@ -19,8 +20,13 @@ logger = logging.getLogger(__name__)
 
 
 class PaiEmbeddings:
-    def __init__(self, results_dir="tmp/results/"):
-        self.results_dir = results_dir
+    def __init__(self, tmp_dir=None):
+        if not tmp_dir:
+            source_dir = os.path.dirname(os.path.dirname(__file__))  # /home/ubuntu/pai/src
+            home_dir = re.match("(.+)\/pai(\/src)?", source_dir).group(1)  # /home/ubuntu
+            self.tmp_dir = os.path.join(home_dir, "tmp/pai/embed")  # /home/ubuntu/tmp/pai/embed
+        else:
+            self.tmp_dir = tmp_dir
         self.access_token = self.get_access_token()
 
     @staticmethod
@@ -43,15 +49,22 @@ class PaiEmbeddings:
 
         response = requests.get(url, headers=headers)
 
-        if not os.path.exists("tmp/adatas/"):
-            os.mkdir("tmp/adatas/")
+        adatas_dir = os.path.join(self.tmp_dir, "adatas")  # /home/ubuntu/tmp/pai/embed/adatas
+        if not os.path.exists(adatas_dir):
+            os.mkdir(adatas_dir)
 
-        with open("tmp/adatas/anndata_example.h5ad", "wb") as binary_file:
+        file_path = os.path.join(adatas_dir, "anndata_example.h5ad")
+        with open(file_path, "wb") as binary_file:
             binary_file.write(response.content)
 
     def inference(self, h5ad_path, tissue_organ):
 
+        # TODO h5ad_path
+        # /home/ubuntu/tmp/pai/embed/adatas/anndata.h5ad
+        # tmp/pai/embed/adatas/anndata.h5ad
+
         assert h5ad_path.endswith(".h5ad")
+        assert os.path.exists(h5ad_path)
 
         job_id = self.upload_h5ad(h5ad_path, tissue_organ)
         self.listen_job_status(job_id)
@@ -108,19 +121,21 @@ class PaiEmbeddings:
 
         response = requests.post(url, headers=headers, json=data)
 
-        if not os.path.exists("tmp/zips/"):
-            os.mkdir("tmp/zips/")
+        zips_dir = os.path.join(self.tmp_dir, "zips")  # /home/ubuntu/tmp/pai/embed/zips
+        if not os.path.exists(zips_dir):
+            os.mkdir(zips_dir)
 
-        if not os.path.exists(self.results_dir):
-            os.mkdir(self.results_dir)
+        results_dir = os.path.join(self.tmp_dir, "results")  # /home/ubuntu/tmp/pai/embed/results
+        if not os.path.exists(results_dir):
+            os.mkdir(results_dir)
 
-        zip_path = f"tmp/zips/{job_id}.zip"  # TODO consider including adata filename as part of results path
-        results_dir = os.path.join(self.results_dir, job_id)  # update results_dir wrt. job_id
+        zip_path = os.path.join(zips_dir, f"{job_id}.zip")
+        job_dir = os.path.join(results_dir, job_id)
 
         with open(zip_path, "wb") as binary_file:
             binary_file.write(response.content)
 
         with zipfile.ZipFile(zip_path, "r") as zip_ref:
-            zip_ref.extractall(results_dir)
+            zip_ref.extractall(job_dir)
 
         # TODO consider option to cleanup zip file
