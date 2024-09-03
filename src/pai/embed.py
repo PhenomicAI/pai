@@ -6,7 +6,7 @@ import zipfile
 
 import requests
 
-BACKEND_API_URI = "https://backend.sctx.phenomic.ai"
+BACKEND_API_URI = "https://backend.sctx.phenomic.ai"  # DEV http://127.0.0.1:5000
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s", datefmt="%m/%d/%Y %I:%M:%S %p")
 logger = logging.getLogger(__name__)
@@ -45,7 +45,7 @@ class PaiEmbeddings:
 
         response = requests.get(url, headers=headers)
 
-        adatas_dir = os.path.join(self.tmp_dir, "adatas")  # /home/ubuntu/tmp/pai/embed/adatas
+        adatas_dir = os.path.join(self.tmp_dir, "adatas")
         if not os.path.exists(adatas_dir):
             os.mkdir(adatas_dir)
 
@@ -54,10 +54,6 @@ class PaiEmbeddings:
             binary_file.write(response.content)
 
     def inference(self, h5ad_path, tissue_organ):
-
-        # TODO h5ad_path
-        # /home/ubuntu/tmp/pai/embed/adatas/anndata.h5ad
-        # tmp/pai/embed/adatas/anndata.h5ad
 
         assert h5ad_path.endswith(".h5ad")
         assert os.path.exists(h5ad_path)
@@ -68,8 +64,7 @@ class PaiEmbeddings:
 
     def upload_h5ad(self, h5ad_path, tissue_organ):
         logger.info("Uploading h5ad file...")
-        # url = "http://127.0.0.1:5000/upload_h5ad"  # TODO
-        url = os.path.join(BACKEND_API_URI, "upload_h5ad")  # TODO
+        url = os.path.join(BACKEND_API_URI, "upload_h5ad")
         headers = { "Authorization": f"Bearer {self.access_token}" }
         data = { "tissueOrgan": tissue_organ }  # body
 
@@ -117,11 +112,11 @@ class PaiEmbeddings:
 
         response = requests.post(url, headers=headers, json=data)
 
-        zips_dir = os.path.join(self.tmp_dir, "zips")  # /home/ubuntu/tmp/pai/embed/zips
+        zips_dir = os.path.join(self.tmp_dir, "zips")
         if not os.path.exists(zips_dir):
             os.mkdir(zips_dir)
 
-        results_dir = os.path.join(self.tmp_dir, "results")  # /home/ubuntu/tmp/pai/embed/results
+        results_dir = os.path.join(self.tmp_dir, "results")
         if not os.path.exists(results_dir):
             os.mkdir(results_dir)
 
