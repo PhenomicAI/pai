@@ -1,19 +1,13 @@
 import json
-import zipfile
-import time
 import logging
 import os
 import re
+import time
+import zipfile
 
-from dotenv import load_dotenv
 import requests
 
-load_dotenv()
-
-AUTH0_URL = os.getenv("AUTH0_URL")
-CLIENT_ID = os.getenv("CLIENT_ID")
-CLIENT_SECRET = os.getenv("CLIENT_SECRET")
-BACKEND_API_URI = os.getenv("BACKEND_API_URI")
+BACKEND_API_URI = "https://backend.sctx.phenomic.ai"
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s", datefmt="%m/%d/%Y %I:%M:%S %p")
 logger = logging.getLogger(__name__)
@@ -31,6 +25,14 @@ class PaiEmbeddings:
 
     @staticmethod
     def get_access_token():
+        AUTH0_URL = os.getenv("AUTH0_URL")
+        CLIENT_ID = os.getenv("CLIENT_ID")
+        CLIENT_SECRET = os.getenv("CLIENT_SECRET")
+
+        assert AUTH0_URL is not None, "AUTH0_URL environment variable not defined"
+        assert CLIENT_ID is not None, "CLIENT_ID environment variable not defined"
+        assert CLIENT_SECRET is not None, "CLIENT_SECRET environment variable not defined"
+
         url = AUTH0_URL
         headers = { "content-type": "application/json" }
         data = { "client_id": f"{CLIENT_ID}", "client_secret": f"{CLIENT_SECRET}", "audience":"https://sctx.auth.phenomic.ai", "grant_type":"client_credentials" }
