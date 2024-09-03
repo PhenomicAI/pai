@@ -14,13 +14,8 @@ logger = logging.getLogger(__name__)
 
 
 class PaiEmbeddings:
-    def __init__(self, tmp_dir=None):
-        if not tmp_dir:
-            source_dir = os.path.dirname(os.path.dirname(__file__))  # /home/ubuntu/pai/src
-            home_dir = re.match("(.+)\/pai(\/src)?", source_dir).group(1)  # /home/ubuntu
-            self.tmp_dir = os.path.join(home_dir, "tmp/pai/embed")  # /home/ubuntu/tmp/pai/embed
-        else:
-            self.tmp_dir = tmp_dir
+    def __init__(self, tmp_dir):
+        self.tmp_dir = tmp_dir
         self.access_token = self.get_access_token()
 
     @staticmethod
