@@ -3,7 +3,7 @@ requires = ["setuptools>=45", "setuptools_scm[toml]>=6.2"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "pai"
+name = "phenomic-ai"
 version = "0.1.0"
 description = "A minimal CLI/API tool which allows you to embed .h5ad files using PAIs (Phenomic AIs) pre-trained embedding model"
 authors = [{name = "Phenomic AI", email = "sctx@phenomic.ai"}]
