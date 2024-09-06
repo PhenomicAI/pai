@@ -1,5 +1,5 @@
 import argparse
-from embed import PaiEmbeddings
+from .embed import PaiEmbeddings
 
 
 def app():
