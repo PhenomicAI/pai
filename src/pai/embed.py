@@ -133,7 +133,7 @@ class PaiEmbeddings:
             # TODO Handle missing chunks
             pass
         else:
-            raise Exception(response.status_code, response.content)
+            raise Exception(response.status_code, response.reason)
 
     def get_job_status(self, job_id):
         url = BACKEND_API_URI + "/job"  # TODO
