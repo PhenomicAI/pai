@@ -6,7 +6,7 @@ import zipfile
 
 import requests
 
-BACKEND_API_URI = "https://backend.sctx.phenomic.ai"  # DEV http://127.0.0.1:5000
+BACKEND_API_URI = "https://backend-api.scref.phenomic.ai"
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s", datefmt="%m/%d/%Y %I:%M:%S %p")
 logger = logging.getLogger(__name__)
@@ -15,35 +15,12 @@ logger = logging.getLogger(__name__)
 class PaiEmbeddings:
     def __init__(self, tmp_dir):
         self.tmp_dir = tmp_dir
-        self.access_token = self.get_access_token()
-
-    @staticmethod
-    def get_access_token():
-        AUTH0_URL = os.getenv("AUTH0_URL")
-        CLIENT_ID = os.getenv("CLIENT_ID")
-        CLIENT_SECRET = os.getenv("CLIENT_SECRET")
-
-        assert AUTH0_URL is not None, "AUTH0_URL environment variable not defined"
-        assert CLIENT_ID is not None, "CLIENT_ID environment variable not defined"
-        assert CLIENT_SECRET is not None, "CLIENT_SECRET environment variable not defined"
-
-        url = AUTH0_URL
-        headers = { "content-type": "application/json" }
-        data = { "client_id": f"{CLIENT_ID}", "client_secret": f"{CLIENT_SECRET}", "audience":"https://sctx.auth.phenomic.ai", "grant_type":"client_credentials" }
-
-        response = requests.post(url, headers=headers, json=data)
-
-        if response.status_code >= 200 and response.status_code < 300:
-            return json.loads(response.content.decode("utf-8"))["access_token"]
-        else:
-            raise Exception("Credentials failed")  # TODO
     
     def download_example_h5ad(self):
         logger.info("Downloading example h5ad")
         url = os.path.join(BACKEND_API_URI, "download_example_h5ad")
-        headers = { "Authorization": f"Bearer {self.access_token}" }
 
-        response = requests.get(url, headers=headers)
+        response = requests.get(url)
 
         adatas_dir = os.path.join(self.tmp_dir, "adatas")
         if not os.path.exists(adatas_dir):
@@ -65,13 +42,13 @@ class PaiEmbeddings:
     def upload_h5ad(self, h5ad_path, tissue_organ):
         logger.info("Uploading h5ad file...")
         url = os.path.join(BACKEND_API_URI, "upload_h5ad")
-        headers = { "Authorization": f"Bearer {self.access_token}" }
         data = { "tissueOrgan": tissue_organ }  # body
 
         with open(h5ad_path, "rb") as file:
             file_name = h5ad_path.split("/")[-1]
             files = { "file": (file_name, file, "multipart/form-data") }
-            response = requests.post(url, headers=headers, data=data, files=files)
+            
+            response = requests.post(url, data=data, files=files)
 
         if response.status_code >= 200 and response.status_code < 300:
             job_id = json.loads(response.content)["id"]
@@ -82,10 +59,9 @@ class PaiEmbeddings:
 
     def get_job_status(self, job_id):
         url = os.path.join(BACKEND_API_URI, "job")  # TODO
-        headers = { "Authorization": f"Bearer {self.access_token}" }
         params = {"job_id": job_id}
 
-        response = requests.get(url, headers=headers, params=params)
+        response = requests.get(url, params=params)
 
         if response.status_code >= 200 and response.status_code < 300:
             status = json.loads(response.content)["status"]
@@ -107,10 +83,9 @@ class PaiEmbeddings:
     def download_job(self, job_id):
         logger.info("Downloading job")
         url = os.path.join(BACKEND_API_URI, "download")
-        headers = { "Content-Type": "application/json", "Authorization": f"Bearer {self.access_token}" }
         data = {"job_id": job_id}
 
-        response = requests.post(url, headers=headers, json=data)
+        response = requests.post(url, json=data)
 
         zips_dir = os.path.join(self.tmp_dir, "zips")
         if not os.path.exists(zips_dir):
