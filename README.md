@@ -33,7 +33,7 @@ pai embed --tmp-dir /tmp/pai/embed --h5ad-path ./anndata.h5ad --tissue-organ adi
 python3 -m pai embed --tmp-dir /tmp/pai/embed --h5ad-path ./anndata.h5ad --tissue-organ adipose
 ```
 
-## Help
+## Help
 
 ```bash
 pai embed --help

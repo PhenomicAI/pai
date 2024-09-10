@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "phenomic-ai"
-version = "0.1.3"
+version = "0.1.4"
 description = "A CLI package which facilitates computational biologists with a single cell RNA embedding tool"
 authors = [{name = "Phenomic AI", email = "sctx@phenomic.ai"}]
 license = {file = "LICENSE"}
