@@ -70,6 +70,16 @@ class PaiEmbeddings:
         return hash_md5.hexdigest()
 
     def upload_h5ad(self, h5ad_path, tissue_organ):
+        logger.info("Checking destination folders...")
+
+        zips_dir = os.path.join(self.tmp_dir, "zips")
+        if not os.path.exists(zips_dir):
+            os.mkdir(zips_dir)
+
+        results_dir = os.path.join(self.tmp_dir, "results")
+        if not os.path.exists(results_dir):
+            os.mkdir(results_dir)
+
         logger.info("Uploading h5ad file...")
         size = os.path.getsize(h5ad_path)
         chunks = math.ceil(size / CHUNK_SIZE)
@@ -128,12 +138,7 @@ class PaiEmbeddings:
         response = requests.post(url, json=data)
 
         zips_dir = os.path.join(self.tmp_dir, "zips")
-        if not os.path.exists(zips_dir):
-            os.mkdir(zips_dir)
-
         results_dir = os.path.join(self.tmp_dir, "results")
-        if not os.path.exists(results_dir):
-            os.mkdir(results_dir)
 
         zip_path = os.path.join(zips_dir, f"{job_id}.zip")
         job_dir = os.path.join(results_dir, job_id)
