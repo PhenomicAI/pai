@@ -2,11 +2,11 @@
 
 A CLI package which facilitates computational biologists with a single cell RNA embedding tool
 
-## Installation
+## Installation
 
 `$ pip install phenomic-ai`
 
-## Usage (examples)
+## Usage (examples)
 
 `$ pai embed --tmp-dir /home/ubuntu/tmp/pai/embed --h5ad-path /home/ubuntu/tmp/pai/embed/adatas/anndata.h5ad --tissue-organ adipose`
 
