@@ -6,13 +6,21 @@ A CLI package which facilitates computational biologists with a single cell RNA 
 
 `$ pip install phenomic-ai`
 
-## Usage (examples)
+## Usage
 
-`$ pai embed --tmp-dir /home/ubuntu/tmp/pai/embed --h5ad-path /home/ubuntu/tmp/pai/embed/adatas/anndata.h5ad --tissue-organ adipose`
+```bash
+pai embed --tmp-dir [tmp_dir_path] --h5ad-path [path to h5ad file] --tissue-organ [tissue organ]
 
-Or
+python3 -m pai embed --tmp-dir [tmp_dir_path] --h5ad-path [path to h5ad file] --tissue-organ [tissue organ]
+```
 
-`$ python3 -m pai embed --tmp-dir /home/ubuntu/tmp/pai/embed --h5ad-path /home/ubuntu/tmp/pai/embed/adatas/anndata.h5ad --tissue-organ adipose`
+## Examples
+
+```bash
+pai embed --tmp-dir /tmp/pai/embed --h5ad-path ./anndata.h5ad --tissue-organ adipose`
+
+python3 -m pai embed --tmp-dir /tmp/pai/embed --h5ad-path ./anndata.h5ad --tissue-organ adipose`
+```
 
 Commands:
 
@@ -27,4 +35,4 @@ Parameters:
 
 ## Support
 
-Email: sctx@phenomic.ai
+Email: <sctx@phenomic.ai>
