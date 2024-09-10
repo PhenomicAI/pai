@@ -17,9 +17,9 @@ python3 -m pai embed --tmp-dir [tmp_dir_path] --h5ad-path [path to h5ad file] --
 ## Examples
 
 ```bash
-pai embed --tmp-dir /tmp/pai/embed --h5ad-path ./anndata.h5ad --tissue-organ adipose`
+pai embed --tmp-dir /tmp/pai/embed --h5ad-path ./anndata.h5ad --tissue-organ adipose
 
-python3 -m pai embed --tmp-dir /tmp/pai/embed --h5ad-path ./anndata.h5ad --tissue-organ adipose`
+python3 -m pai embed --tmp-dir /tmp/pai/embed --h5ad-path ./anndata.h5ad --tissue-organ adipose
 ```
 
 Commands:
