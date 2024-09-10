@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "phenomic-ai"
-version = "0.1.1"
-description = "A minimal CLI/API tool which allows you to embed .h5ad files using PAIs (Phenomic AIs) pre-trained embedding model"
+version = "0.1.2"
+description = "A CLI package which facilitates computational biologists with and single cell RNA embedding tool"
 authors = [{name = "Phenomic AI", email = "sctx@phenomic.ai"}]
 license = {file = "LICENSE"}
 readme = "README.md"
