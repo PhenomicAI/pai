@@ -1,34 +1,7 @@
-LICENSE
+Copyright 2024 Phenomic AI
 
-Copyright (c) 2024 Phenomic AI
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-All rights reserved.
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-The codebase (including, but not limited to, all source code, binaries, documentation, and associated materials) is the proprietary information of Phenomic AI and is strictly confidential. This codebase is provided for use solely by authorized individuals or entities directly affiliated with Phenomic AI and under explicit permission for specific purposes as designated by Phenomic AI.
-
-RESTRICTIONS
-
-1. No Redistribution: This codebase, or any part thereof, may not be reproduced, distributed, or transmitted in any form or by any means, including, but not limited to, photocopying, recording, or other electronic or mechanical methods, without the prior written permission of Phenomic AI.
-
-2. No Modification: No modifications, derivative works, or reverse engineering are allowed without explicit written permission from Phenomic AI.
-
-3. No Usage: The use of this codebase for any purpose other than those specifically granted by Phenomic AI, including but not limited to commercial exploitation, is strictly prohibited.
-
-4. Confidentiality: Authorized users must maintain the confidentiality of this codebase and are prohibited from disclosing or sharing any part of it with unauthorized individuals or entities.
-
-INFRINGEMENT
-
-Violation of these restrictions subjects the violator to legal actions and penalties as permitted by law. Phenomic AI reserves the right to enforce its intellectual property rights to the fullest extent of the law.
-
-COPYRIGHT NOTICE
-
-This codebase is the intellectual property of Phenomic AI and is protected by copyright laws and international copyright treaties, as well as other intellectual property laws and treaties.
-
-CONTACT INFORMATION
-
-For permissions or inquiries, please contact:
-
-Phenomic AI
-info@phenomic.ai
-
-This license is effective as of Apr 10, 2024.
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
